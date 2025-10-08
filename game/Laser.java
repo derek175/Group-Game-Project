@@ -26,7 +26,7 @@ public class Laser {
     }
 
     /*
-    public boolean collidesWith(Alien alien) {
+    public boolean collidesWith(Enemy alien) {
 
     }
     */
