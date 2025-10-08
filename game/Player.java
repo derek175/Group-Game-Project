@@ -18,6 +18,7 @@ public class Player extends Polygon{
         }
 
         brush.drawPolygon(xPoints, yPoints, points.length);
+        brush.fillPolygon(xPoints, yPoints, points.length);
 
     }
     
