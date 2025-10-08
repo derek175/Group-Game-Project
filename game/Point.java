@@ -16,7 +16,6 @@ public class Point implements Cloneable {
   public double getY(){ return y;}
   public void setX(double x){ this.x = x;}
   public void setY(double y){ this.y = y;}
-  jkdjd
   public Point clone() {
 	  return new Point(x, y);
   }
