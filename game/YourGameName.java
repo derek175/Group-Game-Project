@@ -58,5 +58,5 @@ class YourGameName extends Game {
 	public static void main (String[] args) {
    		YourGameName a = new YourGameName();
 		a.repaint();
-  }
+  	}
 }
