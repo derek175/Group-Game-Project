@@ -28,7 +28,7 @@ class YourGameName extends Game {
     	// each time the canvas is repainted
     	counter++;
     	brush.setColor(Color.white);
-    	brush.drawString("Counter is " + counter,10,10);
+    	brush.drawString("Counter is " + counter,5,15);
   }
   
 	public static void main (String[] args) {
