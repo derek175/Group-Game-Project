@@ -5,12 +5,16 @@ import java.awt.event.KeyListener;
 public class Player extends Polygon implements KeyListener{
 
     private boolean movingUp;
-    private boolean movingDown;
+    private boolean movingDown; 
     private boolean movingLeft;
-    private boolean movingRight;
+    private boolean movingRight; 
 
     public Player(Point[] points, Point position, double rotation){
         super(points, position, rotation);
+        this.movingUp = false;
+        this.movingDown = false;
+        this.movingLeft = false;
+        this.movingRight = false;
     }
 
     public void paint(Graphics brush){
@@ -66,22 +70,22 @@ public class Player extends Polygon implements KeyListener{
 
     public void movement() {
         Point[] points = super.getPoints();
-        if (movingUp = true) {
+        if (movingUp == true) {
             for (Point p : points) {
                 p.y += 2;
             }
         }
-        if (movingDown = true) {
+        if (movingDown == true) {
             for (Point p : points) {
                 p.y -= 2;
             }
         }
-        if (movingLeft = true) {
+        if (movingLeft == true) {
             for (Point p : points) {
                 p.x += 2;
             }
         }
-        if (movingRight = true) {
+        if (movingRight == true) {
             for (Point p : points) {
                 p.x -= 2;
             }
