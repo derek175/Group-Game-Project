@@ -8,15 +8,13 @@ NOTE: This class is the metaphorical "main method" of your program,
 
 */
 import java.awt.*;
-import java.awt.event.*;
 
-class YourGameName extends Game {
-	static int counter = 0;
+class SpaceSta extends Game {
 	Player player;
 	Alien alien;
 
-  public YourGameName() {
-    super("YourGameName!",800,600);
+  public SpaceSta() {
+    super("SpaceStationSurvival",800,600);
     this.setFocusable(true);
 	this.requestFocus();
 
@@ -37,16 +35,16 @@ class YourGameName extends Game {
 
 	alien = new Alien(alienPoints, new Point(100, 300), 0, 10);
 
+	this.addKeyListener(player);
+
 	
   }
   
 	public void paint(Graphics brush) {
     	brush.setColor(Color.black);
     	brush.fillRect(0,0,width,height);
-    	
-    	// sample code for printing message for debugging
-    	// counter is incremented and this message printed
-    	// each time the canvas is repainted
+
+		// call the move method here before paint()
     
 		brush.setColor(Color.red);
 		player.paint(brush);
@@ -56,7 +54,7 @@ class YourGameName extends Game {
   }
   
 	public static void main (String[] args) {
-   		YourGameName a = new YourGameName();
+   		SpaceSta a = new SpaceSta();
 		a.repaint();
   	}
 }
