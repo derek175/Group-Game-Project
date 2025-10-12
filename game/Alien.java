@@ -8,7 +8,7 @@ public class Alien extends Polygon implements Enemy{
         super(points, position, rotation);
         this.hp = hp;
     }
-
+//comment
     public void paint(Graphics brush){
         Point[] points = super.getPoints();
 
