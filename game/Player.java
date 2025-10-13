@@ -25,6 +25,7 @@ public class Player extends Polygon implements KeyListener{
         }
 
         brush.drawPolygon(xPoints, yPoints, points.length);
+        brush.fillPolygon(xPoints, yPoints, points.length);
     }
 
     @Override

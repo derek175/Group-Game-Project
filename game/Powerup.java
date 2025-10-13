@@ -24,6 +24,7 @@ public class Powerup extends Polygon{
         }
 
         brush.drawPolygon(xPoints, yPoints, points.length);
+        brush.fillPolygon(xPoints, yPoints, points.length);
     }
 
     public boolean collidesWith(Player player) {

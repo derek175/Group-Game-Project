@@ -13,6 +13,7 @@ import java.awt.event.*;
 class YourGameName extends Game {
 	static int counter = 0;
 	Player player;
+	Powerup powerup;
 	Alien alien;
 
   public YourGameName() {
@@ -37,7 +38,16 @@ class YourGameName extends Game {
 
 	alien = new Alien(alienPoints, new Point(100, 300), 0, 10);
 
-	
+	Point[] powerupPoints = new Point[4];
+		powerupPoints[0] = new Point(0,0);
+		powerupPoints[1] = new Point(10,0);
+		powerupPoints[2] = new Point(10,10);
+		powerupPoints[3] = new Point(0,10);
+
+		int powerUpX = (int)(Math.random() * 700 + 1) + 100;
+		int powerUpY = (int)(Math.random() * 500 + 1) + 100;
+
+		powerup = new Powerup(powerupPoints, new Point(powerUpX, powerUpY), 0);
   }
   
 	public void paint(Graphics brush) {
@@ -53,6 +63,9 @@ class YourGameName extends Game {
 
 		brush.setColor(Color.green);
 		alien.paint(brush);
+
+		brush.setColor(Color.blue);
+		powerup.paint(brush);
   }
   
 	public static void main (String[] args) {
