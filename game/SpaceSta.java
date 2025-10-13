@@ -45,6 +45,7 @@ class SpaceSta extends Game {
 		// call the move method here before paint()
 
 		player.movement();
+		alien.movement(player);
     
 		brush.setColor(Color.red);
 		player.paint(brush);
