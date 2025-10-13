@@ -31,6 +31,14 @@ public class Player extends Polygon implements KeyListener{
         brush.drawPolygon(xPoints, yPoints, points.length);
     }
 
+    // if enemy steps into player radius
+   // public class playerRadius(){}
+    
+
+
+
+    //movement and keyboard responsiveness
+
     @Override
     public void keyTyped(KeyEvent e) {}
 
@@ -69,7 +77,7 @@ public class Player extends Polygon implements KeyListener{
     }
 
     public void movement() {
-        // 
+        // position offsets points 
         int spaces = 5;
         if (movingUp == true) {
            position.y -= spaces;
