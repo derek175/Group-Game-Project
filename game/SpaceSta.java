@@ -26,18 +26,16 @@ class SpaceSta extends Game {
 	elementPoints[3] = new Point(0,20);
 
 	player = new Player(elementPoints, new Point(400,300), 0);
+	this.addKeyListener(player);
+	
 
 	Point[] alienPoints = new Point[3];
 
 	alienPoints[0] = new Point(0,0);
-	alienPoints[1] = new Point(10,30);
+	alienPoints[1] = new Point(15,-30);
 	alienPoints[2] = new Point(30,0);
 
 	alien = new Alien(alienPoints, new Point(100, 300), 0, 10);
-
-	this.addKeyListener(player);
-
-	
   }
   
 	public void paint(Graphics brush) {
@@ -45,6 +43,8 @@ class SpaceSta extends Game {
     	brush.fillRect(0,0,width,height);
 
 		// call the move method here before paint()
+
+		player.movement();
     
 		brush.setColor(Color.red);
 		player.paint(brush);
