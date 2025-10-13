@@ -69,26 +69,19 @@ public class Player extends Polygon implements KeyListener{
     }
 
     public void movement() {
-        Point[] points = super.getPoints();
+        // 
+        int spaces = 5;
         if (movingUp == true) {
-            for (Point p : points) {
-                p.y += 2;
-            }
+           position.y -= spaces;
         }
         if (movingDown == true) {
-            for (Point p : points) {
-                p.y -= 2;
-            }
+            position.y += spaces;
         }
         if (movingLeft == true) {
-            for (Point p : points) {
-                p.x += 2;
-            }
+            position.x -= spaces;
         }
         if (movingRight == true) {
-            for (Point p : points) {
-                p.x -= 2;
-            }
+            position.x += spaces;
         }
     }
 }
