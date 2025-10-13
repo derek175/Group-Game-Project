@@ -36,6 +36,7 @@ class SpaceSta extends Game {
 	alienPoints[2] = new Point(30,0);
 
 	alien = new Alien(alienPoints, new Point(100, 300), 0, 10);
+
   }
   
 	public void paint(Graphics brush) {
