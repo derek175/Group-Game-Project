@@ -93,6 +93,10 @@ public class Player extends Polygon implements KeyListener{
 
         }
 
+        
+
+
+
         // test circle, take out later
 
         public void paint(Graphics brush) {
