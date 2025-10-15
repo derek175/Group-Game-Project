@@ -16,8 +16,12 @@ class SpaceSta extends Game {
 	private Alien alien;
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	Runnable handler;
+	Runnable gameOverHandler;
+	private boolean isGameOver = false;
 	private long lastCollisionTime = 0;
 	private final int COOLDOWN = 2000;
+
+
 
   public SpaceSta() {
     super("SpaceStationSurvival",800,600);
@@ -97,9 +101,14 @@ class SpaceSta extends Game {
 		}
 	};
 
-	if (player.getHp() < 1) {
-		
-	}
+	// lambda function that takes in no parameters
+	// set gameover to true
+	// disables player movement by setting its private instance to true
+
+	gameOverHandler = () -> { 
+		isGameOver = true;
+		player.setGameOver(true);
+	};
   }
   
 	public void paint(Graphics brush) {
@@ -129,7 +138,21 @@ class SpaceSta extends Game {
             }
         }
 
-		handler.run();
+		// if player hp is less than 1 and then game is still running then run the handler which sets expressions to true
+		if (player.getHp() < 1 && !isGameOver) {
+			gameOverHandler.run();
+	 	}
+
+		// now that game is over print a game over on the player screen in the middle
+		
+		if(isGameOver){
+			brush.setColor(Color.red);
+    		brush.drawString("GAME OVER", width / 2 - 40, height / 2);
+		}
+		// keep running if none of the above are true
+		else{
+			handler.run();
+		}
     }
 
 	public static void main (String[] args) {
