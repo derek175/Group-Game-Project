@@ -45,7 +45,6 @@ class SpaceSta extends Game {
 
 	enemies.add(new Alien(alienPoints, new Point(100, 300), 0, 3));
 	enemies.add(new Alien(alienPoints, new Point(700, 300), 0, 3));
-	enemies.add(new Alien(alienPoints, new Point(500, 500), 0, 3));
 
 	handler = new Runnable() {
 
@@ -87,9 +86,14 @@ class SpaceSta extends Game {
 			//removes all enemies when they are killed
 			if (!enemiesToRemove.isEmpty()) {
 
-				int xPos = (int)(Math.random() * 700) + 100;
-				int yPos = (int)(Math.random() * 500) + 100;
-				enemies.add(new Alien(alienPoints, new Point(xPos, yPos), 0, 3));
+				int xPos = (int)(Math.random() * 650) + 100;
+				int yPos = (int)(Math.random() * 450) + 100;
+				if (player.getScore() % 3 == 0) {
+					enemies.add(new Alien.StrongerAlien(alienPoints, new Point(xPos, yPos), 0, 6));
+				}
+				else {
+					enemies.add(new Alien(alienPoints, new Point(xPos, yPos), 0, 3));
+				}
 				player.setScore(player.getScore() + 1);
 			}
 
@@ -122,12 +126,12 @@ class SpaceSta extends Game {
 		player.paint(brush);
 
         player.updateLasers();
-		brush.setColor(Color.green);
         for (Enemy e : enemies) {
-            if (e instanceof Alien) {
-                ((Alien) e).paint(brush);
-            }
-        }
+       		if (e instanceof Alien) {
+            	brush.setColor(((Alien) e).getColor());
+        		((Alien) e).paint(brush);
+       		}
+    	}
 
 		handler.run();
     }

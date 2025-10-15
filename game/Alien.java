@@ -8,7 +8,7 @@ public class Alien extends Polygon implements Enemy{
         super(points, position, rotation);
         this.hp = hp;
     }
-//comment
+    //comment
     public void paint(Graphics brush){
         Point[] points = super.getPoints();
 
@@ -31,6 +31,10 @@ public class Alien extends Polygon implements Enemy{
 
     public void setHp(int hp){
         this.hp = hp;
+    }
+
+    public Color getColor() {
+        return Color.green;
     }
 
     public void movement(Player player){
@@ -61,11 +65,20 @@ public class Alien extends Polygon implements Enemy{
         }
     }
 
-    public class StrongerAlien extends Alien{
+    public static class StrongerAlien extends Alien{
     
         public StrongerAlien(Point[] points, Point position, int rotation, int hp){
             super(points, position, rotation, hp);
         }
 
+        @Override
+        public void paint(Graphics brush) {
+            brush.setColor(Color.orange);
+            super.paint(brush);
+        }
+
+        public Color getColor() {
+            return Color.orange;
+        }
     }
 }

@@ -3,8 +3,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 public class Player extends Polygon implements KeyListener{
 
 
@@ -18,7 +16,8 @@ public class Player extends Polygon implements KeyListener{
     private int hp = 3;
     private ArrayList<Laser> lasers = new ArrayList<>();
     private long lastShotTime = 0;
-    private final int COOLDOWN = 150;
+    private int COOLDOWN = 150;
+    private final int DEFAULT_COOLDOWN = 150;
     PlayerRadius circle;
 
     public Player(Point[] points, Point position, double rotation){
@@ -29,33 +28,6 @@ public class Player extends Polygon implements KeyListener{
         this.movingRight = false;
 
         circle = new PlayerRadius(100);
-    }
-
-    private class Powerup {
-
-        private long timer;
-        private boolean active;
-
-        public Powerup() {
-
-        }
-
-        public void usePowerup() {
-
-            Timer timer = new Timer() {
-                
-                public void run() {
-                    
-                }
-            };
-
-            timer.schedule(new TimerTask() {
-
-                public void run() {
-                    timer.cancel();
-                }
-            }, 5000);
-        }
     }
 
     // if enemy steps into player radius, shoot
@@ -92,10 +64,6 @@ public class Player extends Polygon implements KeyListener{
             }
 
         }
-
-        
-
-
 
         // test circle, take out later
 
@@ -156,7 +124,6 @@ public class Player extends Polygon implements KeyListener{
     }
 
     public void setScore(int score) {
-
         this.score = score;
     }
 
