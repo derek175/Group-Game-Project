@@ -27,9 +27,4 @@ public class Powerup extends Polygon{
         brush.fillPolygon(xPoints, yPoints, points.length);
     }
 
-    public boolean collidesWith(Player player) {
-
-        isAlive = false;
-        return true;
-    }
 }

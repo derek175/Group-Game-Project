@@ -15,8 +15,6 @@ class SpaceSta extends Game {
 	private Player player;
 	private Alien alien;
 	private ArrayList<Enemy> enemies = new ArrayList<>();
-    private ArrayList<Laser> lasers;
-	private int score;
 	Runnable handler;
 	private long lastCollisionTime = 0;
 	private final int COOLDOWN = 2000;
@@ -44,10 +42,10 @@ class SpaceSta extends Game {
 	alienPoints[2] = new Point(30,0);
 
 	enemies = new ArrayList<>();
-	lasers = new ArrayList<>();
 
 	enemies.add(new Alien(alienPoints, new Point(100, 300), 0, 3));
-	
+	enemies.add(new Alien(alienPoints, new Point(700, 300), 0, 3));
+	enemies.add(new Alien(alienPoints, new Point(500, 500), 0, 3));
 
 	handler = new Runnable() {
 
@@ -87,19 +85,21 @@ class SpaceSta extends Game {
 			}
  
 			//removes all enemies when they are killed
+			if (!enemiesToRemove.isEmpty()) {
+
+				int xPos = (int)(Math.random() * 700) + 100;
+				int yPos = (int)(Math.random() * 500) + 100;
+				enemies.add(new Alien(alienPoints, new Point(xPos, yPos), 0, 3));
+				player.setScore(player.getScore() + 1);
+			}
+
 			enemies.removeAll(enemiesToRemove);
 		}
 	};
 
-	if (player.getHp() == 0) {
+	if (player.getHp() < 1) {
 		
 	}
-
-
-
-	
-	alien = new Alien(alienPoints, new Point(100, 300), 0, 10);
-
   }
   
 	public void paint(Graphics brush) {
@@ -108,16 +108,15 @@ class SpaceSta extends Game {
 
 		brush.setColor(Color.white);
         brush.drawString("HP: " + player.getHp(), 10, 20);
-        brush.drawString("Score: " + score, 10, 40);
+        brush.drawString("Score: " + player.getScore(), 10, 40);
 
 		// call the move method here before paint()
 
 		player.movement();
 		player.rotation();
-		// call the move method here before paint()
-		 for (Enemy e : enemies) {
-                ((Alien) e).movement(player);
-            }
+		for (Enemy e : enemies) {
+			((Alien) e).movement(player);
+		}
     
 		brush.setColor(Color.red);
 		player.paint(brush);
@@ -133,10 +132,10 @@ class SpaceSta extends Game {
 		handler.run();
     }
 
-  
 	public static void main (String[] args) {
    		SpaceSta a = new SpaceSta();
 		a.repaint();
   	}
+  }
+  
 
-}
