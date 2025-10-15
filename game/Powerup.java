@@ -5,11 +5,8 @@ import java.awt.event.*;
 
 public class Powerup extends Polygon{
 
-    private boolean isAlive;
-
     public Powerup(Point[] points, Point position, double rotation){
         super(points, position, rotation);
-        isAlive = true;
     }
 
     public void paint(Graphics brush){
