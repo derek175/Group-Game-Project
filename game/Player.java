@@ -19,6 +19,7 @@ public class Player extends Polygon implements KeyListener{
     private ArrayList<Laser> lasers = new ArrayList<>();
     private long lastShotTime = 0;
     private final int COOLDOWN = 150;
+    private boolean gameOver;
     PlayerRadius circle;
 
     public Player(Point[] points, Point position, double rotation){
@@ -160,6 +161,11 @@ public class Player extends Polygon implements KeyListener{
         this.score = score;
     }
 
+    public void setGameOver(boolean value){
+
+        gameOver = value;
+    }
+
     //movement and keyboard responsiveness
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -167,6 +173,10 @@ public class Player extends Polygon implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int pressed = e.getKeyCode();
+
+        if(gameOver){
+            return;
+        }
         if (pressed == KeyEvent.VK_UP) {
             movingUp = true;
         }
