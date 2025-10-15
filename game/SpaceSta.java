@@ -21,10 +21,6 @@ class SpaceSta extends Game {
 	private long lastCollisionTime = 0;
 	private final int COOLDOWN = 2000;
 
-class SpaceSta extends Game {
-	Player player;
-	Alien alien;
-
   public SpaceSta() {
     super("SpaceStationSurvival",800,600);
     this.setFocusable(true);
@@ -98,6 +94,10 @@ class SpaceSta extends Game {
 	if (player.getHp() == 0) {
 		
 	}
+
+
+
+	
 	alien = new Alien(alienPoints, new Point(100, 300), 0, 10);
 
   }
@@ -115,9 +115,9 @@ class SpaceSta extends Game {
 		player.movement();
 		player.rotation();
 		// call the move method here before paint()
-
-		player.movement();
-		alien.movement(player);
+		 for (Enemy e : enemies) {
+                ((Alien) e).movement(player);
+            }
     
 		brush.setColor(Color.red);
 		player.paint(brush);
@@ -132,9 +132,7 @@ class SpaceSta extends Game {
 
 		handler.run();
     }
-		brush.setColor(Color.green);
-		alien.paint(brush);
-  }
+
   
 	public static void main (String[] args) {
    		SpaceSta a = new SpaceSta();
