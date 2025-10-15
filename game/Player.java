@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 public class Player extends Polygon implements KeyListener{
 
 
@@ -12,6 +14,7 @@ public class Player extends Polygon implements KeyListener{
     private boolean movingRight; 
     private boolean shooting;
 
+    private int score = 0;
     private int hp = 3;
     private ArrayList<Laser> lasers = new ArrayList<>();
     private long lastShotTime = 0;
@@ -26,6 +29,33 @@ public class Player extends Polygon implements KeyListener{
         this.movingRight = false;
 
         circle = new PlayerRadius(100);
+    }
+
+    private class Powerup {
+
+        private long timer;
+        private boolean active;
+
+        public Powerup() {
+
+        }
+
+        public void usePowerup() {
+
+            Timer timer = new Timer() {
+                
+                public void run() {
+                    
+                }
+            };
+
+            timer.schedule(new TimerTask() {
+
+                public void run() {
+                    timer.cancel();
+                }
+            }, 5000);
+        }
     }
 
     // if enemy steps into player radius, shoot
@@ -66,23 +96,21 @@ public class Player extends Polygon implements KeyListener{
         // test circle, take out later
 
         public void paint(Graphics brush) {
-        int[] xPoints = new int[circlePoints.length];
-        int[] yPoints = new int[circlePoints.length];
+            int[] xPoints = new int[circlePoints.length];
+            int[] yPoints = new int[circlePoints.length];
 
-        for (int i = 0; i < circlePoints.length; i++) {
-            xPoints[i] = (int) circlePoints[i].x;
-            yPoints[i] = (int) circlePoints[i].y;
+            for (int i = 0; i < circlePoints.length; i++) {
+                xPoints[i] = (int) circlePoints[i].x;
+                yPoints[i] = (int) circlePoints[i].y;
+            }
+
+            brush.setColor(Color.BLUE);
+            brush.drawPolygon(xPoints, yPoints, circlePoints.length);
         }
 
-        brush.setColor(Color.BLUE);
-        brush.drawPolygon(xPoints, yPoints, circlePoints.length);
-
-        
-    }
-
-    public void update() {
-        createCircle(); // Recalculate based on new Player position
-    }
+        public void update() {
+            createCircle(); // Recalculate based on new Player position
+        }
 
     //if alien steps into radius, trigger laser to hit alien; collision
     }
@@ -101,6 +129,8 @@ public class Player extends Polygon implements KeyListener{
         brush.drawPolygon(xPoints, yPoints, points.length);
         brush.fillPolygon(xPoints, yPoints, points.length);
 
+        circle.paint(brush);
+
         for (Laser l : lasers) l.paint(brush);
     }
 
@@ -115,13 +145,18 @@ public class Player extends Polygon implements KeyListener{
     public void loseHp() {
         hp--;
 
-        circle.paint(brush);
     }
 
+    public int getScore() {
+        return score;
+    }
 
+    public void setScore(int score) {
+
+        this.score = score;
+    }
 
     //movement and keyboard responsiveness
-
     @Override
     public void keyTyped(KeyEvent e) {}
 

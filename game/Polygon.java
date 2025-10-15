@@ -103,20 +103,20 @@ class Polygon {
   }
 
   public boolean collides(Polygon other) {
-        // Check if any point of this polygon is inside the other
-        for (Point p : this.getPoints()) {
-            if (other.contains(p)) {
-                return true;
-            }
-        }
+      // Check if any point of this polygon is inside the other
+      for (Point p : this.getPoints()) {
+           if (other.contains(p)) {
+              return true;
+          }
+      }
 
-        // Check the other way around (other's points inside this polygon)
-        for (Point p : other.getPoints()) {
-            if (this.contains(p)) {
-                return true;
-            }
-        }
+      // Check the other way around (other's points inside this polygon)
+      for (Point p : other.getPoints()) {
+          if (this.contains(p)) {
+              return true;
+          }
+      }
 
-        return false;
-    }
+      return false;
+  }
 }
