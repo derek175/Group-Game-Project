@@ -32,4 +32,5 @@ public class Alien extends Polygon implements Enemy{
     public void setHp(int hp){
         this.hp = hp;
     }
+
 }
