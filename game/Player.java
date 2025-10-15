@@ -63,6 +63,10 @@ public class Player extends Polygon implements KeyListener{
 
         }
 
+        
+
+
+
         // test circle, take out later
 
         public void paint(Graphics brush) {
@@ -101,6 +105,8 @@ public class Player extends Polygon implements KeyListener{
         brush.drawPolygon(xPoints, yPoints, points.length);
         brush.fillPolygon(xPoints, yPoints, points.length);
 
+          circle.paint(brush);
+
         for (Laser l : lasers) l.paint(brush);
     }
 
@@ -114,8 +120,6 @@ public class Player extends Polygon implements KeyListener{
 
     public void loseHp() {
         hp--;
-
-        circle.paint(brush);
     }
 
 
