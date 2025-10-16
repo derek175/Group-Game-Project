@@ -17,7 +17,7 @@ public class Player extends Polygon implements KeyListener{
     private long lastShotTime = 0;
     private final int COOLDOWN = 150;
     private boolean gameOver;
-    PlayerRadius circle;
+    private PlayerRadius circle;
 
     public Player(Point[] points, Point position, double rotation){
         // polygon constructor
@@ -32,7 +32,7 @@ public class Player extends Polygon implements KeyListener{
         circle = new PlayerRadius(100);
     }
 
-    // if enemy steps into player radius, shoot
+    // lets player know if enemies are too close to player
     private class PlayerRadius{
 
         Point[] circlePoints = new Point[16];
@@ -69,7 +69,6 @@ public class Player extends Polygon implements KeyListener{
 
         // makes the player radius circle visible when paint is called
         // inner class
-
         public void paint(Graphics brush) {
             int[] xPoints = new int[circlePoints.length];
             int[] yPoints = new int[circlePoints.length];
@@ -90,7 +89,6 @@ public class Player extends Polygon implements KeyListener{
     }
 
     // paint method for player to be drawn on screen
-
     public void paint(Graphics brush){
         Point[] points = super.getPoints();
 
@@ -107,36 +105,42 @@ public class Player extends Polygon implements KeyListener{
 
         circle.paint(brush);
 
-        for (Laser l : lasers) l.paint(brush);
+        for (Laser l : lasers) {
+            l.paint(brush);
+        }
     }
 
+    // returns all lasers on screen
     public ArrayList<Laser> getLasers() {
         return lasers;
     }
 
+    // returns player's hp
     public int getHp() {
         return hp;
     }
 
+    // sets player's hp by -1
     public void loseHp() {
         hp--;
-
     }
 
+    // returns the player's score
     public int getScore() {
         return score;
     }
 
+    // sets the players score
     public void setScore(int score) {
         this.score = score;
     }
 
+    // sets the gameover value
     public void setGameOver(boolean value){
-
         gameOver = value;
     }
 
-    //movement and keyboard responsiveness
+    // movement and keyboard responsiveness
     @Override
     public void keyTyped(KeyEvent e) {}
 
@@ -145,6 +149,9 @@ public class Player extends Polygon implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int pressed = e.getKeyCode();
+        if (gameOver) {
+            return;
+        }
         if (pressed == KeyEvent.VK_UP) {
             movingUp = true;
         }
@@ -229,27 +236,29 @@ public class Player extends Polygon implements KeyListener{
         }
     }
 
+    // updates all lasers on screen; moves the lasers across the 
+    // screen in which direction they were fired
     public void updateLasers() {
 
         long currentTime = System.currentTimeMillis();
 
-        //delay in bewteen shots so there no constant beam
+        // delay in bewteen shots so there no constant beam
         if (shooting && currentTime - lastShotTime > COOLDOWN) {
             lastShotTime = currentTime;
 
-            //fires in direction based on player rotation
+            // fires in direction based on player rotation
             double angle = Math.toRadians(rotation - 90);
             double vx = Math.cos(angle) * 5;
             double vy = Math.sin(angle) * 5;
             lasers.add(new Laser(position.x + 3, position.y + 3, vx, vy));
         }
 
-        //updates laser position
+        // updates laser position
         for (int i = 0; i < lasers.size(); i++) {
             Laser l = lasers.get(i);
             l.update();
 
-            //deletes laser if collided with enemy or at end of screen
+            // deletes laser if collided with enemy or at end of screen
             if (!l.isAlive()) {
                 lasers.remove(i);
                 i--;
