@@ -23,6 +23,8 @@ class SpaceSta extends Game {
     this.setFocusable(true);
 	this.requestFocus();
 
+	// player points - square at center of window
+
 	Point[] elementPoints = new Point[4];
 
 	elementPoints[0] = new Point(0,0);
@@ -30,9 +32,10 @@ class SpaceSta extends Game {
 	elementPoints[2] = new Point(20,20);
 	elementPoints[3] = new Point(0,20);
 
-	player = new Player(elementPoints, new Point(400,300), 0);
+	player = new Player(elementPoints, new Point(width / 2 - 40, height / 2), 0);
 	this.addKeyListener(player);
 	
+	// alien shape - triangle 
 
 	Point[] alienPoints = new Point[3];
 
@@ -84,7 +87,7 @@ class SpaceSta extends Game {
  
 			//removes all enemies when they are killed
 			if (!enemiesToRemove.isEmpty()) {
-
+				// randomizes spawn point of alien
 				int xPos = (int)(Math.random() * 650) + 100;
 				int yPos = (int)(Math.random() * 450) + 100;
 				if (player.getScore() % 3 == 0) {
@@ -111,15 +114,16 @@ class SpaceSta extends Game {
   }
   
 	public void paint(Graphics brush) {
+		// background color
     	brush.setColor(Color.black);
     	brush.fillRect(0,0,width,height);
 
+		// strings that keep track of player hp and the score
 		brush.setColor(Color.white);
         brush.drawString("HP: " + player.getHp(), 10, 20);
         brush.drawString("Score: " + player.getScore(), 10, 40);
 
 		// call the move method here before paint()
-
 		player.movement();
 		player.rotation();
 		for (Enemy e : enemies) {
