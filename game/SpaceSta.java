@@ -15,10 +15,8 @@ class SpaceSta extends Game {
 	private Player player;
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	private Runnable handler;
-	private Runnable gameOverHandler;
-	private boolean isGameOver = false;
 	private long lastCollisionTime = 0;
-	private final int COOLDOWN = 1500;
+	private final int COOLDOWN = 2000;
 
   public SpaceSta() {
     super("SpaceStationSurvival",800,600);
