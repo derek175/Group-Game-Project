@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 public class Player extends Polygon implements KeyListener{
 
-
     private boolean movingUp;
     private boolean movingDown; 
     private boolean movingLeft;
@@ -17,15 +16,21 @@ public class Player extends Polygon implements KeyListener{
     private ArrayList<Laser> lasers = new ArrayList<>();
     private long lastShotTime = 0;
     private final int COOLDOWN = 150;
+
+    // flag for when the player hp reaches 0
     private boolean gameOver;
+    // player's radius circle
     PlayerRadius circle;
 
     public Player(Point[] points, Point position, double rotation){
+        // polygon constructor
         super(points, position, rotation);
         this.movingUp = false;
         this.movingDown = false;
         this.movingLeft = false;
         this.movingRight = false;
+
+        // circle around player that indicates an enemy is too close
 
         circle = new PlayerRadius(100);
     }
@@ -65,7 +70,8 @@ public class Player extends Polygon implements KeyListener{
 
         }
 
-        // test circle, take out later
+        // makes the player radius circle visible when paint is called
+        // inner class
 
         public void paint(Graphics brush) {
             int[] xPoints = new int[circlePoints.length];
@@ -81,11 +87,12 @@ public class Player extends Polygon implements KeyListener{
         }
 
         public void update() {
-            createCircle(); // Recalculate based on new Player position
+            // Recalculate based on new Player position
+            createCircle();
         }
-
-    //if alien steps into radius, trigger laser to hit alien; collision
     }
+
+    // paint method for player to be drawn on screen
 
     public void paint(Graphics brush){
         Point[] points = super.getPoints();
@@ -136,6 +143,8 @@ public class Player extends Polygon implements KeyListener{
     @Override
     public void keyTyped(KeyEvent e) {}
 
+    //if arrow key is pressed then the player moves
+    // if gameOver is true then stop all movement
     @Override
     public void keyPressed(KeyEvent e) {
         int pressed = e.getKeyCode();
@@ -160,6 +169,7 @@ public class Player extends Polygon implements KeyListener{
         }
     }
 
+    //stop moving if keys aren't pressed
     @Override
     public void keyReleased(KeyEvent e) {
         int pressed = e.getKeyCode();
@@ -180,8 +190,8 @@ public class Player extends Polygon implements KeyListener{
         }
     }
 
+    // movement based on arrow keys
     public void movement() {
-        // 
         int spaces = 2;
         if (movingUp == true) {
            position.y -= spaces;
