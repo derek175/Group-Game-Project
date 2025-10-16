@@ -14,13 +14,11 @@ class SpaceSta extends Game {
 
 	private Player player;
 	private ArrayList<Enemy> enemies = new ArrayList<>();
-	Runnable handler;
-	Runnable gameOverHandler;
-	private boolean isGameOver = false;
+	private Runnable handler;
+	private Runnable gameOverHandler;
+	private boolean isGameOver;
 	private long lastCollisionTime = 0;
 	private final int COOLDOWN = 2000;
-
-
 
   public SpaceSta() {
     super("SpaceStationSurvival",800,600);
@@ -47,11 +45,12 @@ class SpaceSta extends Game {
 	alienPoints[1] = new Point(15,-30);
 	alienPoints[2] = new Point(30,0);
 
+	// intialize enemies and add into array to be put in game
 	enemies = new ArrayList<>();
-
 	enemies.add(new Alien(alienPoints, new Point(100, 300), 0, 3));
 	enemies.add(new Alien(alienPoints, new Point(700, 300), 0, 3));
 
+	// running every frame that the game is loaded on
 	handler = new Runnable() {
 
 		@Override
@@ -59,17 +58,18 @@ class SpaceSta extends Game {
 
             ArrayList<Enemy> enemiesToRemove = new ArrayList<>();
 
-			//checks all lasers on screen
+			// checks all lasers on screen
             for (Laser l : player.getLasers()) {
 
-				//checks for all enemies on screen
+				// checks for all enemies on screen
                 for (Enemy e : enemies) {
 
-					//checks if laser collides with enemy to be removed
+					// checks if laser collides with enemy to be removed
                     if (l.isAlive() && l.collides((Polygon) e)) {
                         e.setHp(e.getHp() - 1);
                         l.kill();
 
+						// adds enemy to be removed when killed
                         if (e.getHp() == 0) {
                             enemiesToRemove.add(e);
                         }
@@ -79,30 +79,33 @@ class SpaceSta extends Game {
 
 			long currentTime = System.currentTimeMillis();
 
-			//checks for all enemies on screen
+			// checks for all enemies on screen
 			for (Enemy e : enemies) {
 
-				//checks if any enemy has touched the player and prevents player from constantly losing hp
+				// checks if any enemy has touched the player and prevents player from constantly losing hp
 				if (((Polygon) e).collides(player) && currentTime - lastCollisionTime >= COOLDOWN) {
 					player.loseHp();
 					lastCollisionTime = currentTime;
 				}
 			}
  
-			//removes all enemies when they are killed
+			// removes all enemies when they are killed
 			if (!enemiesToRemove.isEmpty()) {
 				// randomizes spawn point of alien
 				int xPos = (int)(Math.random() * 650) + 100;
 				int yPos = (int)(Math.random() * 450) + 100;
+				// adds a special type of alien that has more hp after every 3 kills
 				if (player.getScore() % 3 == 0) {
 					enemies.add(new Alien.StrongerAlien(alienPoints, new Point(xPos, yPos), 0, 6));
 				}
+				// add back normal alien when one is killed
 				else {
 					enemies.add(new Alien(alienPoints, new Point(xPos, yPos), 0, 3));
 				}
 				player.setScore(player.getScore() + 1);
 			}
 
+			// removes any aliens on screen when added to the list
 			enemies.removeAll(enemiesToRemove);
 		}
 	};
@@ -110,7 +113,6 @@ class SpaceSta extends Game {
 	// lambda function that takes in no parameters
 	// set gameover to true
 	// disables player movement by setting its private instance to true
-
 	gameOverHandler = () -> { 
 		isGameOver = true;
 		player.setGameOver(true);
@@ -134,10 +136,15 @@ class SpaceSta extends Game {
 			((Alien) e).movement(player);
 		}
     
+		//sets player color to red
 		brush.setColor(Color.red);
 		player.paint(brush);
 
+
         player.updateLasers();
+
+		// colors aliens based on what color is assigned 
+		// (green for regular, orange for stronger)
         for (Enemy e : enemies) {
        		if (e instanceof Alien) {
             	brush.setColor(((Alien) e).getColor());

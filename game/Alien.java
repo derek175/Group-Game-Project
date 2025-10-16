@@ -74,7 +74,6 @@ public class Alien extends Polygon implements Enemy{
     }
 
     // inner class that houses StrongerAlien which has different color
-
     public static class StrongerAlien extends Alien{
     
         public StrongerAlien(Point[] points, Point position, int rotation, int hp){
@@ -87,6 +86,7 @@ public class Alien extends Polygon implements Enemy{
             super.paint(brush);
         }
 
+        // returns color of stronger alien
         public Color getColor() {
             return Color.orange;
         }
