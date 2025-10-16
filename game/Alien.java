@@ -1,14 +1,18 @@
 package game;
 import java.awt.*;
 
+// alien extends Polygon and implements Enemy interface
+
 public class Alien extends Polygon implements Enemy{
+    // has hp that player lowers by using lasers
+
     private int hp;
 
     public Alien(Point[] points, Point position, int rotation, int hp){
         super(points, position, rotation);
         this.hp = hp;
     }
-    //comment
+    //method that draws the alien on the screen
     public void paint(Graphics brush){
         Point[] points = super.getPoints();
 
@@ -25,6 +29,8 @@ public class Alien extends Polygon implements Enemy{
 
     }
 
+    // getters and setters for hp, color
+
     public int getHp(){
         return hp;
     }
@@ -36,6 +42,8 @@ public class Alien extends Polygon implements Enemy{
     public Color getColor() {
         return Color.green;
     }
+
+    // alien follows player to attack
 
     public void movement(Player player){
 
@@ -64,6 +72,8 @@ public class Alien extends Polygon implements Enemy{
             this.position.y += y;
         }
     }
+
+    // inner class that houses StrongerAlien which has different color
 
     public static class StrongerAlien extends Alien{
     

@@ -76,7 +76,7 @@ public class Player extends Polygon implements KeyListener{
                 yPoints[i] = (int) circlePoints[i].y;
             }
 
-            brush.setColor(Color.BLUE);
+            brush.setColor(Color.RED);
             brush.drawPolygon(xPoints, yPoints, circlePoints.length);
         }
 
