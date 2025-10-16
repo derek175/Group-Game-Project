@@ -13,7 +13,6 @@ import java.util.ArrayList;
 class SpaceSta extends Game {
 
 	private Player player;
-	private Alien alien;
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	Runnable handler;
 	Runnable gameOverHandler;
